@@ -40,7 +40,7 @@ def _generate_uuid() -> str:
 class Auth:
     """
     Auth class to interact with the authentication database.
-    Provides methods for user registration, session management, 
+    Provides methods for user registration, session management,
     and password reset functionality.
     """
 
@@ -138,10 +138,12 @@ class Auth:
 
     def destroy_session(self, user_id: int) -> None:
         """
-        Destroys the session associated with a user by setting the session ID to None.
+        Destroys the session associated with a user
+        by setting the session ID to None.
 
         Args:
-            user_id (int): The ID of the user whose session should be destroyed.
+            user_id (int): The ID of the user whose
+            session should be destroyed.
 
         Returns:
             None
@@ -186,7 +188,8 @@ class Auth:
             password (str): The new plaintext password.
 
         Raises:
-            ValueError: If the reset token is invalid or the user does not exist.
+            ValueError: If the reset token is invalid
+            or the user does not exist.
 
         Returns:
             None

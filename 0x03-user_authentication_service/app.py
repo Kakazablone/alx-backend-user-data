@@ -3,16 +3,19 @@
 
 from typing import Optional, Tuple, Union
 from auth import Auth
-from flask import Flask, jsonify, request, abort, redirect, Response, make_response
+from flask import Flask, jsonify, request, abort, redirect
+from flask import Response, make_response
 
 app = Flask(__name__)
 AUTH = Auth()
+
 
 @app.route('/', methods=['GET'])
 def hello_world() -> Response:
     """ Base route for authentication service API """
     msg = {"message": "Bienvenue"}
     return jsonify(msg)
+
 
 @app.route('/users', methods=['POST'])
 def register_user() -> Union[Response, Tuple[Response, int]]:
@@ -31,6 +34,7 @@ def register_user() -> Union[Response, Tuple[Response, int]]:
     msg = {"email": email, "message": "user created"}
     return jsonify(msg)
 
+
 @app.route('/sessions', methods=['POST'])
 def log_in() -> Response:
     """Logs in a user and returns session ID"""
@@ -48,6 +52,7 @@ def log_in() -> Response:
     response.set_cookie("session_id", session_id)
     return response
 
+
 @app.route('/sessions', methods=['DELETE'])
 def log_out() -> Response:
     """Finds the user by session ID and logs them out"""
@@ -63,6 +68,7 @@ def log_out() -> Response:
     AUTH.destroy_session(user.id)
     return redirect('/')
 
+
 @app.route('/profile', methods=['GET'])
 def profile() -> Union[Response, Tuple[Response, int]]:
     """Returns the user's profile based on session ID"""
@@ -76,6 +82,7 @@ def profile() -> Union[Response, Tuple[Response, int]]:
         abort(403)
 
     return jsonify({"email": user.email}), 200
+
 
 @app.route('/reset_password', methods=['POST'])
 def reset_password() -> Union[Response, Tuple[Response, int]]:
@@ -91,6 +98,7 @@ def reset_password() -> Union[Response, Tuple[Response, int]]:
         abort(403)
 
     return jsonify({"email": email, "reset_token": reset_token}), 200
+
 
 @app.route('/reset_password', methods=['PUT'])
 def update_password() -> Union[Response, Tuple[Response, int]]:
@@ -108,6 +116,7 @@ def update_password() -> Union[Response, Tuple[Response, int]]:
         abort(403)
 
     return jsonify({"email": email, "message": "Password updated"}), 200
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

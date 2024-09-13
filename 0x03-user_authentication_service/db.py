@@ -17,9 +17,11 @@ class DB:
     """DB Class for Object Relational Mapping (ORM) interactions."""
 
     def __init__(self):
-        """Constructor method that initializes the database engine and session."""
+        """Constructor method that initializes the
+        database engine and session."""
         self._engine = create_engine("sqlite:///a.db", echo=False)
-        Base.metadata.drop_all(self._engine)  # Drops all tables (use with caution)
+        Base.metadata.drop_all(self._engine)
+        # Drops all tables (use with caution)
         Base.metadata.create_all(self._engine)  # Creates all tables
         self.__session = None
 
@@ -57,7 +59,8 @@ class DB:
         Finds a user in the database by keyword arguments.
 
         Args:
-            **kwargs: Arbitrary keyword arguments (e.g., email='example@example.com').
+            **kwargs: Arbitrary keyword arguments
+            (e.g., email='example@example.com').
 
         Raises:
             InvalidRequestError: If no valid column names are provided.
@@ -87,7 +90,8 @@ class DB:
 
         Args:
             user_id (int): The ID of the user to update.
-            **kwargs: Arbitrary keyword arguments containing the attributes to update.
+            **kwargs: Arbitrary keyword arguments containing
+            the attributes to update.
 
         Raises:
             ValueError: If any provided key is not a valid column.
